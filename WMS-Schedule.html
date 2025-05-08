@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プロジェクト計画ガントチャート</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+        }
+        .timeline-container {
+            overflow-x: auto;
+        }
+        .timeline {
+            min-width: 1100px;
+        }
+        .month-cell {
+            min-width: 100px;
+        }
+        .task-bar {
+            height: 24px;
+            position: relative;
+            border-radius: 4px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        .task-bar-suzuki {
+            background-color: #4299e1;
+        }
+        .task-bar-takehisa {
+            background-color: #48bb78;
+        }
+        .task-bar-both {
+            background-color: #9f7aea;
+        }
+        .task-bar-unassigned {
+            background-color: #f6ad55;
+        }
+        .task-label {
+            position: absolute;
+            left: 8px;
+            top: 2px;
+            color: white;
+            font-size: 12px;
+            white-space: nowrap;
+            text-shadow: 0px 0px 2px rgba(0,0,0,0.7);
+        }
+        @media print {
+            .timeline-container {
+                overflow-x: visible;
+            }
+            .timeline {
+                width: 100%;
+                max-width: none;
+            }
+            body {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="bg-white shadow-lg rounded-lg p-6 max-w-7xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center">プロジェクト計画ガントチャート</h1>
+        
+        <div class="mb-6">
+            <h2 class="text-xl font-semibold mb-3">凡例</h2>
+            <div class="flex flex-wrap gap-4">
+                <div class="flex items-center">
+                    <div class="w-6 h-6 bg-blue-500 rounded mr-2"></div>
+                    <span>鱸 担当</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-6 h-6 bg-green-500 rounded mr-2"></div>
+                    <span>武久 担当</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-6 h-6 bg-purple-500 rounded mr-2"></div>
+                    <span>武久・鱸 共同</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-6 h-6 bg-orange-400 rounded mr-2"></div>
+                    <span>担当者未定</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-container mb-8">
+            <h2 class="text-xl font-semibold mb-3">Ver.1.0</h2>
+            <div class="timeline">
+                <!-- ヘッダー (月) -->
+                <div class="flex border-b-2 border-gray-800">
+                    <div class="w-48 p-2 font-bold">タスク</div>
+                    <div class="w-24 p-2 font-bold">担当</div>
+                    <div class="flex-1 flex">
+                        <div class="month-cell p-2 font-bold text-center border-l border-gray-300">4月</div>
+                        <div class="month-cell p-2 font-bold text-center border-l border-gray-300">5月</div>
+                        <div class="month-cell p-2 font-bold text-center border-l border-gray-300">6月</div>
+                        <div class="month-cell p-2 font-bold text-center border-l border-gray-300">7月</div>
+                        <div class="month-cell p-2 font-bold text-center border-l border-gray-300">8月</div>
+                        <div class="month-cell p-2 font-bold text-center border-l border-gray-300">9月</div>
+                        <div class="month-cell p-2 font-bold text-center border-l border-gray-300">10月</div>
+                        <div class="month-cell p-2 font-bold text-center border-l border-gray-300">11月</div>
+                        <div class="month-cell p-2 font-bold text-center border-l border-gray-300">12月</div>
+                    </div>
+                </div>
+                
+                <!-- タスク行 -->
+                <div class="flex border-b border-gray-200">
+                    <div class="w-48 p-2">Gitリポジトリ作成</div>
+                    <div class="w-24 p-2">鱸</div>
+                    <div class="flex-1 flex relative">
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <!-- タスクバー -->
+                        <div class="absolute top-2 left-0 w-full">
+                            <div class="task-bar task-bar-suzuki" style="width: 100px; margin-left: 0px;">
+                                <span class="task-label">4/1-4/30</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex border-b border-gray-200">
+                    <div class="w-48 p-2">開発方針策定</div>
+                    <div class="w-24 p-2">鱸</div>
+                    <div class="flex-1 flex relative">
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <!-- タスクバー -->
+                        <div class="absolute top-2 left-0 w-full">
+                            <div class="task-bar task-bar-suzuki" style="width: 100px; margin-left: 0px;">
+                                <span class="task-label">4/1-4/30</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex border-b border-gray-200">
+                    <div class="w-48 p-2">DB定義書作成</div>
+                    <div class="w-24 p-2">鱸</div>
+                    <div class="flex-1 flex relative">
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <!-- タスクバー -->
+                        <div class="absolute top-2 left-0 w-full">
+                            <div class="task-bar task-bar-suzuki" style="width: 10px; margin-left: 105px;">
+                                <span class="task-label">5/7-5/9</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex border-b border-gray-200">
+                    <div class="w-48 p-2">WEB画面案作成</div>
+                    <div class="w-24 p-2">鱸</div>
+                    <div class="flex-1 flex relative">
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <!-- タスクバー -->
+                        <div class="absolute top-2 left-0 w-full">
+                            <div class="task-bar task-bar-suzuki" style="width: 50px; margin-left: 105px;">
+                                <span class="task-label">5/7-5/23</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex border-b border-gray-200">
+                    <div class="w-48 p-2">サーバー環境構築</div>
+                    <div class="w-24 p-2">武久</div>
+                    <div class="flex-1 flex relative">
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <!-- タスクバー -->
+                        <div class="absolute top-2 left-0 w-full">
+                            <div class="task-bar task-bar-takehisa" style="width: 155px; margin-left: 105px;">
+                                <span class="task-label">5/7-6/30</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex border-b border-gray-200">
+                    <div class="w-48 p-2">フロントエンド開発環境構築</div>
+                    <div class="w-24 p-2">武久</div>
+                    <div class="flex-1 flex relative">
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <!-- タスクバー -->
+                        <div class="absolute top-2 left-0 w-full">
+                            <div class="task-bar task-bar-takehisa" style="width: 75px; margin-left: 105px;">
+                                <span class="task-label">5/7-5/31</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex border-b border-gray-200">
+                    <div class="w-48 p-2">フロントエンド開発</div>
+                    <div class="w-24 p-2">武久</div>
+                    <div class="flex-1 flex relative">
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <!-- タスクバー -->
+                        <div class="absolute top-2 left-0 w-full">
+                            <div class="task-bar task-bar-takehisa" style="width: 285px; margin-left: 105px;">
+                                <span class="task-label">5/7-7/31</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex border-b border-gray-200">
+                    <div class="w-48 p-2">データベース構築</div>
+                    <div class="w-24 p-2">鱸</div>
+                    <div class="flex-1 flex relative">
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <!-- タスクバー -->
+                        <div class="absolute top-2 left-0 w-full">
+                            <div class="task-bar task-bar-suzuki" style="width: 155px; margin-left: 105px;">
+                                <span class="task-label">5/7-6/30</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex border-b border-gray-200">
+                    <div class="w-48 p-2">バックエンド開発</div>
+                    <div class="w-24 p-2">鱸</div>
+                    <div class="flex-1 flex relative">
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <!-- タスクバー -->
+                        <div class="absolute top-2 left-0 w-full">
+                            <div class="task-bar task-bar-suzuki" style="width: 285px; margin-left: 105px;">
+                                <span class="task-label">5/7-7/31</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex border-b border-gray-200">
+                    <div class="w-48 p-2">単体テスト</div>
+                    <div class="w-24 p-2">武久・鱸</div>
+                    <div class="flex-1 flex relative">
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <!-- タスクバー -->
+                        <div class="absolute top-2 left-0 w-full">
+                            <div class="task-bar task-bar-both" style="width: 385px; margin-left: 105px;">
+                                <span class="task-label">5/7-8/31</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex border-b border-gray-200">
+                    <div class="w-48 p-2">結合テスト</div>
+                    <div class="w-24 p-2">武久・鱸</div>
+                    <div class="flex-1 flex relative">
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <!-- タスクバー -->
+                        <div class="absolute top-2 left-0 w-full">
+                            <div class="task-bar task-bar-both" style="width: 435px; margin-left: 105px;">
+                                <span class="task-label">5/7-9/20</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex border-b border-gray-200">
+                    <div class="w-48 p-2">Ver.1.0 リリース</div>
+                    <div class="w-24 p-2">武久・鱸</div>
+                    <div class="flex-1 flex relative">
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <!-- タスクバー -->
+                        <div class="absolute top-2 left-0 w-full">
+                            <div class="task-bar task-bar-both" style="width: 445px; margin-left: 105px;">
+                                <span class="task-label">5/7-9/30</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-container">
+            <h2 class="text-xl font-semibold mb-3">Ver.2.0</h2>
+            <div class="timeline">
+                <!-- ヘッダー (月) -->
+                <div class="flex border-b-2 border-gray-800">
+                    <div class="w-48 p-2 font-bold">タスク</div>
+                    <div class="w-24 p-2 font-bold">担当</div>
+                    <div class="flex-1 flex">
+                        <div class="month-cell p-2 font-bold text-center border-l border-gray-300">4月</div>
+                        <div class="month-cell p-2 font-bold text-center border-l border-gray-300">5月</div>
+                        <div class="month-cell p-2 font-bold text-center border-l border-gray-300">6月</div>
+                        <div class="month-cell p-2 font-bold text-center border-l border-gray-300">7月</div>
+                        <div class="month-cell p-2 font-bold text-center border-l border-gray-300">8月</div>
+                        <div class="month-cell p-2 font-bold text-center border-l border-gray-300">9月</div>
+                        <div class="month-cell p-2 font-bold text-center border-l border-gray-300">10月</div>
+                        <div class="month-cell p-2 font-bold text-center border-l border-gray-300">11月</div>
+                        <div class="month-cell p-2 font-bold text-center border-l border-gray-300">12月</div>
+                    </div>
+                </div>
+
+                <!-- タスク行 -->
+                <div class="flex border-b border-gray-200">
+                    <div class="w-48 p-2">ハンディ画面案作成</div>
+                    <div class="w-24 p-2">鱸</div>
+                    <div class="flex-1 flex relative">
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <!-- タスクバー -->
+                        <div class="absolute top-2 left-0 w-full">
+                            <div class="task-bar task-bar-suzuki" style="width: 385px; margin-left: 105px;">
+                                <span class="task-label">5/7-8/31</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex border-b border-gray-200">
+                    <div class="w-48 p-2">ハンディアプリ開発</div>
+                    <div class="w-24 p-2">武久</div>
+                    <div class="flex-1 flex relative">
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <!-- タスクバー -->
+                        <div class="absolute top-2 left-0 w-full">
+                            <div class="task-bar task-bar-takehisa" style="width: 635px; margin-left: 105px;">
+                                <span class="task-label">5/7-11/30</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex border-b border-gray-200">
+                    <div class="w-48 p-2">単体テスト</div>
+                    <div class="w-24 p-2">未定</div>
+                    <div class="flex-1 flex relative">
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <!-- タスクバー -->
+                        <div class="absolute top-2 left-0 w-full">
+                            <div class="task-bar task-bar-unassigned" style="width: 685px; margin-left: 105px;">
+                                <span class="task-label">5/7-12/10</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex border-b border-gray-200">
+                    <div class="w-48 p-2">結合テスト</div>
+                    <div class="w-24 p-2">未定</div>
+                    <div class="flex-1 flex relative">
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <!-- タスクバー -->
+                        <div class="absolute top-2 left-0 w-full">
+                            <div class="task-bar task-bar-unassigned" style="width: 695px; margin-left: 105px;">
+                                <span class="task-label">5/7-12/15</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex border-b border-gray-200">
+                    <div class="w-48 p-2">Ver.2.0リリース</div>
+                    <div class="w-24 p-2">未定</div>
+                    <div class="flex-1 flex relative">
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <div class="month-cell border-l border-gray-300"></div>
+                        <!-- タスクバー -->
+                        <div class="absolute top-2 left-0 w-full">
+                            <div class="task-bar task-bar-unassigned" style="width: 735px; margin-left: 105px;">
+                                <span class="task-label">5/7-12/31</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 text-sm text-gray-600">
+            <p>※このガントチャートは2023年4月～12月のプロジェクト計画を表示しています。</p>
+            <p>※バーの長さは計画期間を表しています。</p>
+        </div>
+    </div>
+</body>
+</html>
